@@ -1,11 +1,14 @@
 #ENSE 374 -- LAB3
+---
 
 location: localhost:3333
 
-
 Registration code: 123
 
-Users: 
+
+Users:
+---
+
 username: user1@a.com
 password: password1
 
@@ -15,6 +18,9 @@ password: password2
 username: user3@c.com,
 password: password3
 
+
+Files:
+---
 
 index.js: the main server/node file
 
