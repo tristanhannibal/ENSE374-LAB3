@@ -5,6 +5,8 @@ location: localhost:3333
 
 Registration code: 123
 
+logout is in top right corner of todo.ejs
+
 
 Users:
 ---
@@ -36,7 +38,7 @@ Views:
 
 login.ejs: the main login/registration page.
 
-todo.ejs: the view which contains layout and add/remove tasks as well as logout in the top right corner.
+todo.ejs: the view which contains layout and add/remove tasks.
 
 views/partials:
 
