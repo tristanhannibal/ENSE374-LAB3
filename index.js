@@ -13,7 +13,7 @@ app.listen(port, function () {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const AUTH_VALUE = '123';
+const AUTH_VALUE = '123'; // Auth code for signup
 
 
 createFileWX('./todo.json');
@@ -53,7 +53,7 @@ app.post('/register', function (req, res) {
 
 
 
-//veryifies user is allowed to login then redirects to todo page if allowed
+//verifies user is allowed to login then redirects to todo page if allowed
 app.post('/login', function (req, res) {
     var email = req.body.email;
     var password = req.body.password;
@@ -74,14 +74,13 @@ app.post('/login', function (req, res) {
 });
 
 
-// the basic page after we login
+
 app.post('/todo', function (req, res) {
     var email = req.body.email;
     res.render('todo', { email: email, taskDatabase: jsonDatabase['Tasks'] });
 });
 
 
-//turns done into false
 app.post('/unfinish', function (req, res) {
     var id = req.body.postID;
     var email = req.body.email;
@@ -100,14 +99,13 @@ app.post('/abandonorcomplete', function (req, res) {
     var id = req.body.postID;
     var abandon = req.body.abandon;
     var email = req.body.email;
-    //console.log(email);
 
     for (var i = 0; i < jsonDatabase['Tasks'].length; i++) {
         if (jsonDatabase['Tasks'][i].id == id) {
             var index = i;
         }
     }
-    //if abandon is set then we abandon, else we no we are changing the done condition
+    //if abandon is set then we abandon, else we know we are changing the done condition
     if (abandon) {
         delete jsonDatabase['Tasks'][index].owner;
 
@@ -129,8 +127,7 @@ app.post('/claim', function (req, res) {
     var index = findJsonIndex(jsonDatabase['Tasks'], id);
     jsonDatabase['Tasks'][index].owner = email;
     fs.writeFileSync('./todo.json', JSON.stringify(jsonDatabase));
-    res.render('todo', { email: email, taskDatabase: jsonDatabase['Tasks'] }); //would be better with sessions vars
-    // res.redirect(307, "/todo");
+    res.render('todo', { email: email, taskDatabase: jsonDatabase['Tasks'] });
 
 
 });
@@ -147,7 +144,7 @@ app.post('/addtask', function (req, res) {
     taskAdded = new Task(nextIndex, entry, user, user, false, false);
     jsonDatabase['Tasks'].push(taskAdded);
     fs.writeFileSync('./todo.json', JSON.stringify(jsonDatabase));
-    res.render('todo', { email: user, taskDatabase: jsonDatabase['Tasks'] }); //would be better with sessions vars
+    res.render('todo', { email: user, taskDatabase: jsonDatabase['Tasks'] });
 
 
 
